@@ -6,16 +6,16 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * @author HUANG Kaihang
- * @create 2019/6/4 21:06
+ * @create 2019/6/5 17:31
  * @update 2019/6/5 17:31
  */
 
 @SpringBootApplication
 @EnableEurekaClient
-public class FinalProjectAdminRegisterApplication {
+public class FinalProjectAdminSessionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinalProjectAdminRegisterApplication.class, args);
+		SpringApplication.run(FinalProjectAdminSessionApplication.class, args);
 	}
 
 }

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hkh</groupId>
-    <artifactId>final-project-admin-register</artifactId>
+    <artifactId>final-project-admin-session</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>final-project-admin-register</name>
-    <description>Module for admin register of final project</description>
+    <name>final-project-admin-session</name>
+    <description>Module for admin session of final project</description>
 
     <parent>
         <groupId>com.hkh</groupId>
@@ -37,8 +37,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.12</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
