@@ -1,25 +1,39 @@
 #Spring Cloud Configuration
 
-#port number
-server:
-  port: 5555
+##port number
+#server:
+#  port: 5555
+#
+##zuul configuration
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 7000
+#
+#ribbon:
+#  ReadTimeout: 7000
+#
+#zuul:
+#  ignored-services: '*'
+#  prefix: /api
+#  routes:
+#    adminregisterservice: /admin/**
+#    adminsessionservice: /admin/**
 
-#zuul configuration
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 7000
-
-ribbon:
-  ReadTimeout: 7000
+##Spring Boot Configuration
+#spring:
+#  output:
+#    ansi:
+#      enabled: always
+#
 

@@ -1,7 +1,7 @@
 #Bootstrap Configuration
 spring:
   application:
-    name: adminsessionservice
+    name: gatewayservice
   profiles:
     active: default
   cloud:
