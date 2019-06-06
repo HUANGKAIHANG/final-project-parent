@@ -19,3 +19,20 @@ spring:
   output:
     ansi:
       enabled: always
+  cloud:
+    stream:
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 47.101.45.147
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        adminEventOutput:
+          destination: adminEventTopic
+          content-type: application/json
+          binder: rabbit1

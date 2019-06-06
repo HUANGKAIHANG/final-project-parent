@@ -32,3 +32,21 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    stream:
+      binders:
+        rabbit2:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 47.101.45.147
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        adminEventInput:
+          destination: adminEventTopic
+          content-type: application/json
+          group: adminSessionGroup
+          binder: rabbit2

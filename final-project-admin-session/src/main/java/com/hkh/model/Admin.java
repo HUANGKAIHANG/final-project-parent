@@ -1,5 +1,6 @@
 package com.hkh.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 
 @Data
+@Builder
 @Entity
 @Table(name = "t_admin")
 public class Admin implements Serializable {

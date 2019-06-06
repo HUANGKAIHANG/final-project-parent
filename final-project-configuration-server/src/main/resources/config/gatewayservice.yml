@@ -27,8 +27,7 @@ zuul:
   ignored-services: '*'
   prefix: /api
   routes:
-    adminregisterservice: /admin/**
-    adminsessionservice: /admin/**
+    adminregisterservice: /**
 
 #Spring Boot Configuration
 spring:
