@@ -50,3 +50,8 @@ spring:
           content-type: application/json
           group: adminSessionGroup
           binder: rabbit2
+  redis:
+    host: 47.101.45.147
+    port: 6379
+    session:
+      store-type: redis

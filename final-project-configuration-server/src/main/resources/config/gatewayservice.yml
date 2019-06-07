@@ -28,6 +28,7 @@ zuul:
   prefix: /api
   routes:
     adminregisterservice: /**
+    adminsessionservice: /session/**
 
 #Spring Boot Configuration
 spring:

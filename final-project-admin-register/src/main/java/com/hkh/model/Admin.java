@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 
 @Data
+@NoArgsConstructor
 public class Admin implements Serializable {
 
 	private Integer id;
