@@ -2,7 +2,7 @@
 
 #Port Number
 server:
-  port: 10001
+  port: 10003
 
 #Eureka Configuration
 eureka:
@@ -38,7 +38,7 @@ spring:
   cloud:
     stream:
       binders:
-        rabbit2:
+        rabbit4:
           type: rabbit
           environment:
             spring:
@@ -48,14 +48,8 @@ spring:
                 username: guest
                 password: guest
       bindings:
-        adminEventInput:
-          destination: adminEventTopic
+        newsEventInput:
+          destination: newsEventTopic
           content-type: application/json
-          group: adminSessionGroup
-          binder: rabbit2
-#Spring Session Redis Configuration
-  redis:
-    host: 47.101.45.147
-    port: 6379
-  session:
-    store-type: redis
+          group: newsGroup
+          binder: rabbit4

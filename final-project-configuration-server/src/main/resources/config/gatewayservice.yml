@@ -1,10 +1,10 @@
 #Spring Cloud Configuration
 
-#port number
+#Port Number
 server:
   port: 5555
 
-#zuul configuration
+#Eureka Configuration
 eureka:
   instance:
     prefer-ip-address: true
@@ -12,6 +12,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+#Hystrix Configuration
 hystrix:
   command:
     default:
@@ -20,18 +21,29 @@ hystrix:
           thread:
             timeoutInMilliseconds: 7000
 
+#Ribbon Configuration
 ribbon:
   ReadTimeout: 7000
 
+#Zuul Configuration
 zuul:
+  sensitive-headers:
+  add-host-header: true
   ignored-services: '*'
   prefix: /api
   routes:
     adminregisterservice: /**
     adminsessionservice: /session/**
+    adminnewsservice: /an/**
 
 #Spring Boot Configuration
 spring:
   output:
     ansi:
       enabled: always
+#Spring Session Redis Configuration
+  redis:
+    host: 47.101.45.147
+    port: 6379
+  session:
+    store-type: redis

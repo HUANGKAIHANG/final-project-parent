@@ -1,10 +1,10 @@
 #Spring Cloud Configuration
 
-#port number
+#Port Number
 server:
   port: 10000
 
-#eureka configuration
+#Eureka Configuration
 eureka:
   instance:
     prefer-ip-address: true
@@ -19,6 +19,7 @@ spring:
   output:
     ansi:
       enabled: always
+#Rabbit MQ Configuration
   cloud:
     stream:
       binders:
