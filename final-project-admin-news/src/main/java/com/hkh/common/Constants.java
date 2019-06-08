@@ -10,4 +10,8 @@ public class Constants {
 
 	public static final String LOGIN_ADMIN = "login_admin";
 
+	public static final String NEWS_ADD = "add";
+
+	public static final String NEWS_DELETE = "delete";
+
 }

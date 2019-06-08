@@ -1,5 +1,6 @@
 package com.hkh.event;
 
+import com.hkh.common.Constants;
 import com.hkh.model.News;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,16 @@ public class NewsEventPublisher {
 				.content(news.getContent())
 				.createTime(news.getCreateTime())
 				.inputUser(news.getInputUser())
+				.operation(Constants.NEWS_ADD)
+				.build();
+		log.info("PUBLISHING news event {}", model);
+		source.output().send(MessageBuilder.withPayload(model).build());
+	}
+
+	public void publishDelete(Integer newsId) {
+		NewsEventModel model = NewsEventModel.builder()
+				.id(newsId)
+				.operation(Constants.NEWS_DELETE)
 				.build();
 		log.info("PUBLISHING news event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());

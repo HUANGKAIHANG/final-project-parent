@@ -20,4 +20,8 @@ public class NewsService {
 	public void addNews(News news) {
 		newsEventPublisher.publish(news);
 	}
+
+	public void delNews(Integer newsId) {
+		newsEventPublisher.publishDelete(newsId);
+	}
 }
