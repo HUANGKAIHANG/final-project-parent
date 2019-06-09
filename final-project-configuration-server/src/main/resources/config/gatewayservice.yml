@@ -36,6 +36,8 @@ zuul:
     adminsessionservice: /as/**
     adminnewsservice: /an/**
     usernewsservice: /un/**
+    adminproductservice: /ap/**
+    userproductservice: /up/**
 
 #Spring Boot Configuration
 spring:

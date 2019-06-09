@@ -1,0 +1,45 @@
+#Spring Cloud Configuration
+
+#Port Number
+server:
+  port: 10004
+
+#Eureka Configuration
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+#Spring Boot Configuration
+spring:
+  output:
+    ansi:
+      enabled: always
+  #Rabbit MQ Configuration
+  cloud:
+    stream:
+      binders:
+        rabbit5:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 47.101.45.147
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        productEventOutput:
+          destination: productEventTopic
+          content-type: application/json
+          binder: rabbit5
+  #Spring Session Redis Configuration
+  redis:
+    host: 47.101.45.147
+    port: 6379
+  session:
+    store-type: redis

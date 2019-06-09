@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hkh</groupId>
-    <artifactId>final-project-admin-news</artifactId>
+    <artifactId>final-project-admin-product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>final-project-admin-news</name>
-    <description>Module for admin news of final project</description>
+    <name>final-project-admin-product</name>
+    <description>Module for admin product of final project</description>
 
     <parent>
         <groupId>com.hkh</groupId>
@@ -55,7 +55,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>
