@@ -1,7 +1,7 @@
 package com.hkh.event;
 
 import com.hkh.model.Admin;
-import com.hkh.repository.AdminRepository;
+import com.hkh.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -10,7 +10,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/6 17:23
- * @update 2019/6/6 17:23
+ * @update 2019/6/9 14:44
  */
 
 @EnableBinding(AdminEventSink.class)
@@ -18,7 +18,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 public class AdminEventHandler {
 
 	@Autowired
-	private AdminRepository adminRepository;
+	private AdminService adminService;
 
 	@StreamListener("adminEventInput")
 	public void handle(AdminEventModel model) {
@@ -27,6 +27,6 @@ public class AdminEventHandler {
 				.username(model.getUsername())
 				.password(model.getPassword())
 				.build();
-		adminRepository.save(admin);
+		adminService.save(admin);
 	}
 }

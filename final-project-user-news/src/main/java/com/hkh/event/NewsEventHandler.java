@@ -2,7 +2,7 @@ package com.hkh.event;
 
 import com.hkh.common.Constants;
 import com.hkh.model.News;
-import com.hkh.repository.NewsRepository;
+import com.hkh.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -11,7 +11,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/8 20:58
- * @update 2019/6/8 20:58
+ * @update 2019/6/9 14:42
  */
 
 @EnableBinding(NewsEventSink.class)
@@ -19,7 +19,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 public class NewsEventHandler {
 
 	@Autowired
-	private NewsRepository newsRepository;
+	private NewsService newsService;
 
 	private static final String NEWS_ADD = Constants.NEWS_ADD;
 
@@ -40,10 +40,10 @@ public class NewsEventHandler {
 	}
 
 	public void add(News news) {
-		newsRepository.save(news);
+		newsService.addNews(news);
 	}
 
 	public void delete(Integer id) {
-		newsRepository.deleteById(id);
+		newsService.delNews(id);
 	}
 }

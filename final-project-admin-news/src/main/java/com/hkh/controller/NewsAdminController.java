@@ -4,7 +4,6 @@ import com.hkh.common.JsonResult;
 import com.hkh.model.News;
 import com.hkh.service.NewsService;
 import com.hkh.util.AdminUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +13,11 @@ import java.util.Date;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/8 16:37
- * @update 2019/6/8 16:37
+ * @update 2019/6/9 15:25
  */
 
 @RestController
 @RequestMapping("/admin")
-@Slf4j
 public class NewsAdminController {
 
 	@Autowired
@@ -41,4 +39,5 @@ public class NewsAdminController {
 		result.setToSuccess();
 		return result;
 	}
+
 }

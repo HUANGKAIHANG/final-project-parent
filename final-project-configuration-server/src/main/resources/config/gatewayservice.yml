@@ -32,9 +32,10 @@ zuul:
   ignored-services: '*'
   prefix: /api
   routes:
-    adminregisterservice: /**
-    adminsessionservice: /session/**
+    adminregisterservice: /ar/**
+    adminsessionservice: /as/**
     adminnewsservice: /an/**
+    usernewsservice: /un/**
 
 #Spring Boot Configuration
 spring:

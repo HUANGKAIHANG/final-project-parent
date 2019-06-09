@@ -1,5 +1,6 @@
 package com.hkh.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "t_news")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class News implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/7 15:57
- * @update 2019/6/7 15:57
+ * @update 2019/6/9 14:44
  */
 
 @Service
@@ -25,5 +25,9 @@ public class AdminService {
 
 	public Admin findByUsernameAndPassword(String username, String password) {
 		return adminDao.findByUsernameAndPassword(username, password);
+	}
+
+	public void save(Admin admin) {
+		adminDao.save(admin);
 	}
 }

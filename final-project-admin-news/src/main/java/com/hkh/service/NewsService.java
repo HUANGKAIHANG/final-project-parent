@@ -24,4 +24,5 @@ public class NewsService {
 	public void delNews(Integer newsId) {
 		newsEventPublisher.publishDelete(newsId);
 	}
+
 }
