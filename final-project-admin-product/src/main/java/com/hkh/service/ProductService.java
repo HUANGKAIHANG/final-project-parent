@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 20:16
- * @update 2019/6/9 20:16
+ * @update 2019/6/10 16:47
  */
 
 @Service
@@ -19,8 +19,8 @@ public class ProductService {
 	@Autowired
 	private ProductEventPublisher productEventPublisher;
 
-	public void save(Product product, MultipartFile file, String filePath) {
-		productEventPublisher.publish(product, file, filePath);
+	public void save(Product product) {
+		productEventPublisher.publish(product);
 	}
 
 	/*public void delNews(Integer newsId) {

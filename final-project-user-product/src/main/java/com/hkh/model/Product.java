@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 20:55
- * @update 2019/6/9 20:55
+ * @update 2019/6/10 17:56
  */
 
 @Data
@@ -23,6 +25,8 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "t_product")
+@DynamicUpdate
+@Proxy(lazy = false)
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +39,7 @@ public class Product implements Serializable {
 
 	private Integer point;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn
 	private Picture masterPic;
 

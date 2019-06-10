@@ -3,10 +3,8 @@ package com.hkh.event;
 import com.hkh.model.Admin;
 import com.hkh.model.Picture;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 21:05
- * @update 2019/6/9 21:05
+ * @update 2019/6/10 16:16
  */
 
 @Data
@@ -43,10 +41,6 @@ public class ProductEventModel {
 	private Long stock;
 
 	private Admin inputUser;
-
-	private MultipartFile file;
-
-	private String filePath;
 
 	private String operation;
 }

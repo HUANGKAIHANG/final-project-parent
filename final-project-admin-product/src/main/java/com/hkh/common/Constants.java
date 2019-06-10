@@ -14,4 +14,8 @@ public class Constants {
 
 	public static final String PRODUCT_EDIT = "edit";
 
+	public static final int IMG_WIDTH = 300;
+
+	public static final int IMG_HEIGHT = 300;
+
 }

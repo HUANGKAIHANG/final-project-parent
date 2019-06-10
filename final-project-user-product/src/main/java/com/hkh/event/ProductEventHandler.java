@@ -1,27 +1,18 @@
 package com.hkh.event;
 
 import com.hkh.common.Constants;
-import com.hkh.model.Picture;
 import com.hkh.model.Product;
 import com.hkh.service.PictureService;
 import com.hkh.service.ProductService;
-import com.hkh.util.Image;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Date;
 
 /**
  * @author HUANG Kaihang
- * @create 2019/6/9 21:08
- * @update 2019/6/9 21:08
+ * @create 2019/6/10 16:46
+ * @update 2019/6/10 16:46
  */
 
 @EnableBinding(ProductEventSink.class)
@@ -41,7 +32,15 @@ public class ProductEventHandler {
 		log.info("RECEIVED product {}", model);
 		if (PRODUCT_ADD.equals(model.getOperation())) {
 
-			MultipartFile file = model.getFile();
+			/*Picture masterPic = model.getMasterPic();
+			Picture picture = Picture.builder()
+					.memo(masterPic.getMemo())
+					.title(masterPic.getTitle())
+					.updateTime(masterPic.getUpdateTime())
+					.url(masterPic.getUrl())
+					.updateAdminId(model.getInputUser().getId())
+					.build();
+			addPicture(picture);*/
 
 			Product product = Product.builder()
 					.code(model.getCode())
@@ -52,73 +51,24 @@ public class ProductEventHandler {
 					.stock(model.getStock())
 					.title(model.getTitle())
 					.inputUserId(model.getInputUser().getId())
+					.masterPic(model.getMasterPic())
 					.build();
-
-			if (file != null && !file.isEmpty()) {
-				uploadImage(product, model.getFilePath(), file, model.getInputUser().getId());
-			}
-			add(product);
+			addProduct(product);
 		} else {
 
 		}
 	}
 
-	public void add(Product product) {
+	public void addProduct(Product product) {
 		productService.save(product);
 	}
+
+	/*public void addPicture(Picture picture){
+		pictureService.save(picture);
+	}*/
 
 	/*public void delete(Integer id) {
 		newsService.delNews(id);
 	}*/
-
-
-	private void uploadImage(Product product, String filePath, MultipartFile file, Integer updateAdminId) {
-		String fileName = generateFileName();
-		String path = filePath;
-		String serverFile = path + "/" + fileName;
-
-		System.out.println("fileName=" + fileName);
-		System.out.println("path=" + path);
-
-		Picture picture = uploadAndSaveImg(file, fileName, path, serverFile, updateAdminId);
-
-		product.setMasterPic(picture);
-	}
-
-	private String generateFileName() {
-		return new Date().getTime() + ".jpg";
-	}
-
-	private Picture uploadAndSaveImg(MultipartFile file, String fileName, String path, String serverFile, Integer updateAdminId) {
-		Picture picture = new Picture();
-
-		try {
-			log.info("PICTURE path: {}", path);
-			if (!new File(path).exists()) {
-				new File(path).mkdirs();
-			}
-			if (!new File(serverFile).exists()) {
-				new File(serverFile).createNewFile();
-			}
-
-			byte[] bytes = file.getBytes();
-			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(serverFile)));
-			stream.write(bytes);
-			stream.close();
-
-			Image image = new Image(serverFile);
-			image.resize(Constants.IMG_WIDTH, Constants.IMG_HEIGHT);
-			image.save();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		picture.setMemo("商品上传");
-		picture.setTitle("商品上传");
-		picture.setUpdateTime(new Date());
-		picture.setUrl("/upload/" + fileName);
-		picture.setUpdateAdminId(updateAdminId);
-		pictureService.save(picture);
-		return picture;
-	}
 
 }

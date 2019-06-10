@@ -6,12 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 20:29
- * @update 2019/6/9 20:29
+ * @update 2019/6/10 16:46
  */
 
 @Slf4j
@@ -21,7 +20,7 @@ public class ProductEventPublisher {
 	@Autowired
 	private ProductEventSource source;
 
-	public void publish(Product product, MultipartFile file, String filePath) {
+	public void publish(Product product) {
 		ProductEventModel model = ProductEventModel.builder()
 				.code(product.getCode())
 				.createTime(product.getCreateTime())
@@ -31,13 +30,11 @@ public class ProductEventPublisher {
 				.stock(product.getStock())
 				.title(product.getTitle())
 				.inputUser(product.getInputUser())
+				.masterPic(product.getMasterPic())
 				.operation(Constants.PRODUCT_ADD)
-				.file(file)
-				.filePath(filePath)
 				.build();
-		log.info("GENERATED filePath is {}", filePath);
+		log.info("PICTURE url {}", model.getMasterPic().getUrl());
 		log.info("PUBLISHING product event {}", model);
-		log.info("PUBLISHING MultipartFile {}:{}", file.getOriginalFilename(), file.getName());
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 
