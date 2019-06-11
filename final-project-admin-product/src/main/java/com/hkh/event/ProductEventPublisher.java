@@ -1,6 +1,7 @@
 package com.hkh.event;
 
 import com.hkh.common.Constants;
+import com.hkh.model.Picture;
 import com.hkh.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +39,29 @@ public class ProductEventPublisher {
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 
-	/*public void publishDelete(Integer newsId) {
-		NewsEventModel model = NewsEventModel.builder()
-				.id(newsId)
-				.operation(Constants.NEWS_DELETE)
+	public void publishEdit(Product product, boolean fileRequired) {
+		ProductEventModel model = ProductEventModel.builder()
+				.id(product.getId())
+				.code(product.getCode())
+				.model(product.getModel())
+				.note(product.getNote())
+				.point(product.getPoint())
+				.stock(product.getStock())
+				.title(product.getTitle())
+				.createTime(product.getCreateTime())
+				.inputUser(product.getInputUser())
+				.operation(Constants.PRODUCT_EDIT)
+				.editWithNewImageFile(fileRequired)
 				.build();
-		log.info("PUBLISHING news event {}", model);
+		if (fileRequired) {
+			model.setMasterPic(product.getMasterPic());
+		} else {
+			Picture picture = new Picture();
+			picture.setId(product.getMasterPicId());
+			model.setMasterPic(picture);
+		}
+		log.info("FILE required {}", fileRequired);
+		log.info("PUBLISHING product edit event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
-	}*/
+	}
 }

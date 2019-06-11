@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 21:05
- * @update 2019/6/10 16:16
+ * @update 2019/6/11 14:44
  */
 
 @Data
@@ -43,4 +43,7 @@ public class ProductEventModel {
 	private Admin inputUser;
 
 	private String operation;
+
+	private Boolean editWithNewImageFile;
+
 }

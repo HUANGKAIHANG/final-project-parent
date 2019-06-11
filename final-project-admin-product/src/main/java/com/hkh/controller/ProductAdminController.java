@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 21:03
- * @update 2019/6/10 16:43
+ * @update 2019/6/11 15:45
  */
 
 @RestController
@@ -43,6 +43,18 @@ public class ProductAdminController {
 		product.setCreateTime(new Date());
 		productService.save(product);
 		return "doNew";
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String doEdit(Product product, HttpSession session, @RequestParam(name = "file", required = false) MultipartFile file) {
+		boolean fileRequired = false;
+		if (file != null && !file.isEmpty()) {
+			uploadImage(product, session, file);
+			fileRequired = true;
+		}
+		product.setInputUser(AdminUtil.getAdminFromSession(session));
+		productService.edit(product, fileRequired);
+		return "doEdit";
 	}
 
 

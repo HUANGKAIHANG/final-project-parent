@@ -42,4 +42,6 @@ public class Product implements Serializable {
 	private Long stock;
 
 	private Admin inputUser;
+
+	private Integer masterPicId;
 }

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 20:55
- * @update 2019/6/10 17:56
+ * @update 2019/6/11 15:15
  */
 
 @Data
@@ -39,7 +39,7 @@ public class Product implements Serializable {
 
 	private Integer point;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne/*(cascade = {CascadeType.ALL})*/
 	@JoinColumn
 	private Picture masterPic;
 

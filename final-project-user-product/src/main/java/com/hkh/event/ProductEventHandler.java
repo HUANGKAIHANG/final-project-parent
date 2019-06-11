@@ -1,6 +1,7 @@
 package com.hkh.event;
 
 import com.hkh.common.Constants;
+import com.hkh.model.Picture;
 import com.hkh.model.Product;
 import com.hkh.service.PictureService;
 import com.hkh.service.ProductService;
@@ -12,7 +13,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/10 16:46
- * @update 2019/6/10 16:46
+ * @update 2019/6/11 15:58
  */
 
 @EnableBinding(ProductEventSink.class)
@@ -27,21 +28,15 @@ public class ProductEventHandler {
 
 	private static final String PRODUCT_ADD = Constants.PRODUCT_ADD;
 
+	private static final String PRODUCT_EDIT = Constants.PRODUCT_EDIT;
+
 	@StreamListener("productEventInput")
 	public void handle(ProductEventModel model) {
 		log.info("RECEIVED product {}", model);
 		if (PRODUCT_ADD.equals(model.getOperation())) {
-
-			/*Picture masterPic = model.getMasterPic();
-			Picture picture = Picture.builder()
-					.memo(masterPic.getMemo())
-					.title(masterPic.getTitle())
-					.updateTime(masterPic.getUpdateTime())
-					.url(masterPic.getUrl())
-					.updateAdminId(model.getInputUser().getId())
-					.build();
-			addPicture(picture);*/
-
+			Picture tempPicture = model.getMasterPic();
+			Picture picture = buildNewPictureModel(tempPicture, model.getInputUser().getId());
+			addPicture(picture);
 			Product product = Product.builder()
 					.code(model.getCode())
 					.createTime(model.getCreateTime())
@@ -51,11 +46,19 @@ public class ProductEventHandler {
 					.stock(model.getStock())
 					.title(model.getTitle())
 					.inputUserId(model.getInputUser().getId())
-					.masterPic(model.getMasterPic())
+					.masterPic(picture)
 					.build();
 			addProduct(product);
-		} else {
-
+		} else if (PRODUCT_EDIT.equals(model.getOperation()) && model.getEditWithNewImageFile()) {
+			Picture tempPicture = model.getMasterPic();
+			Picture masterPic = buildNewPictureModel(tempPicture, model.getInputUser().getId());
+			addPicture(masterPic);
+			Product product = buildEditProductModel(model, masterPic);
+			addProduct(product);
+		} else if (PRODUCT_EDIT.equals(model.getOperation()) && !model.getEditWithNewImageFile()) {
+			Picture masterPic = findPictureById(model.getMasterPic().getId());
+			Product product = buildEditProductModel(model, masterPic);
+			addProduct(product);
 		}
 	}
 
@@ -63,12 +66,39 @@ public class ProductEventHandler {
 		productService.save(product);
 	}
 
-	/*public void addPicture(Picture picture){
+	public void addPicture(Picture picture) {
 		pictureService.save(picture);
-	}*/
+	}
 
-	/*public void delete(Integer id) {
-		newsService.delNews(id);
-	}*/
+	public Picture findPictureById(Integer id) {
+		return pictureService.findById(id);
+	}
+
+	public Picture buildNewPictureModel(Picture tempPicture, Integer updateAdminId) {
+		Picture picture = Picture.builder()
+				.title(tempPicture.getTitle())
+				.memo(tempPicture.getMemo())
+				.url(tempPicture.getUrl())
+				.updateTime(tempPicture.getUpdateTime())
+				.updateAdminId(updateAdminId)
+				.build();
+		return picture;
+	}
+
+	public Product buildEditProductModel(ProductEventModel model, Picture masterPic) {
+		Product product = Product.builder()
+				.id(model.getId())
+				.code(model.getCode())
+				.createTime(model.getCreateTime())
+				.model(model.getModel())
+				.note(model.getNote())
+				.point(model.getPoint())
+				.stock(model.getStock())
+				.title(model.getTitle())
+				.inputUserId(model.getInputUser().getId())
+				.masterPic(masterPic)
+				.build();
+		return product;
+	}
 
 }

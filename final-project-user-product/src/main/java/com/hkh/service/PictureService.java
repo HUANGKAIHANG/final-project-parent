@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 21:39
- * @update 2019/6/9 21:39
+ * @update 2019/6/11 15:01
  */
 
 @Service
@@ -21,5 +21,9 @@ public class PictureService {
 
 	public void save(Picture picture) {
 		pictureDao.save(picture);
+	}
+
+	public Picture findById(Integer id){
+		return pictureDao.getOne(id);
 	}
 }

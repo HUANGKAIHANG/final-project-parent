@@ -4,16 +4,14 @@ import com.hkh.event.ProductEventPublisher;
 import com.hkh.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author HUANG Kaihang
  * @create 2019/6/9 20:16
- * @update 2019/6/10 16:47
+ * @update 2019/6/11 15:45
  */
 
 @Service
-//@Transactional
 public class ProductService {
 
 	@Autowired
@@ -23,7 +21,8 @@ public class ProductService {
 		productEventPublisher.publish(product);
 	}
 
-	/*public void delNews(Integer newsId) {
-		newsEventPublisher.publishDelete(newsId);
-	}*/
+	public void edit(Product product, boolean fileRequired) {
+		productEventPublisher.publishEdit(product, fileRequired);
+	}
+
 }
