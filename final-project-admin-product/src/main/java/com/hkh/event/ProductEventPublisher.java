@@ -34,8 +34,8 @@ public class ProductEventPublisher {
 				.masterPic(product.getMasterPic())
 				.operation(Constants.PRODUCT_ADD)
 				.build();
-		log.info("PICTURE url {}", model.getMasterPic().getUrl());
-		log.info("PUBLISHING product event {}", model);
+		log.info("\nPICTURE url {}", model.getMasterPic().getUrl());
+		log.info("\nPUBLISHING product event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 
@@ -60,8 +60,8 @@ public class ProductEventPublisher {
 			picture.setId(product.getMasterPicId());
 			model.setMasterPic(picture);
 		}
-		log.info("FILE required {}", fileRequired);
-		log.info("PUBLISHING product edit event {}", model);
+		log.info("\nFILE required {}", fileRequired);
+		log.info("\nPUBLISHING product edit event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 }

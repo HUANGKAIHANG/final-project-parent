@@ -28,11 +28,8 @@ public class AdminController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String doLogin(Admin admin, HttpSession session) {
 		if (adminService.checkLogin(admin)) {
-			AdminUtil.saveAdminToSession(
-					session, adminService.findByUsernameAndPassword(
-							admin.getUsername(), admin.getPassword())
-			);
-			log.info("ADMIN [{}] login successful via session {}", admin.getUsername(), session.getId());
+			AdminUtil.saveAdminToSession(session, adminService.findByUsernameAndPassword(admin.getUsername(), admin.getPassword()));
+			log.info("\nADMIN [{}] login successful via session {}", admin.getUsername(), session.getId());
 			return "doLogin";
 		}
 		return "errorPwd";

@@ -1,24 +1,18 @@
 package com.hkh.util;
 
 import com.hkh.common.Constants;
-import com.hkh.model.Admin;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * @author HUANG Kaihang
- * @create 2019/6/7 15:51
- * @update 2019/6/11 21:21
+ * @create 2019/6/11 21:17
+ * @update 2019/6/11 21:17
  */
-
 public class AdminUtil {
 
 	public static final String ADMIN = Constants.LOGIN_ADMIN;
-
-	public static void saveAdminToSession(HttpSession session, Admin admin) {
-		UserUtil.deleteUserFromSession(session);
-		session.setAttribute(ADMIN,admin);
-	}
 
 	public static void deleteAdminFromSession(HttpSession session) {
 		session.removeAttribute(ADMIN);

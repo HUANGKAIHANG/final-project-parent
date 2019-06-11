@@ -28,7 +28,7 @@ public class NewsEventPublisher {
 				.inputUser(news.getInputUser())
 				.operation(Constants.NEWS_ADD)
 				.build();
-		log.info("PUBLISHING news event {}", model);
+		log.info("\nPUBLISHING news event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 
@@ -37,7 +37,7 @@ public class NewsEventPublisher {
 				.id(newsId)
 				.operation(Constants.NEWS_DELETE)
 				.build();
-		log.info("PUBLISHING news event {}", model);
+		log.info("\nPUBLISHING news event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 }

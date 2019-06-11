@@ -24,7 +24,7 @@ public class AdminEventPublisher {
 				.username(admin.getUsername())
 				.password(admin.getPassword())
 				.build();
-		log.info("PUBLISHING admin event {}", model);
+		log.info("\nPUBLISHING admin event {}", model);
 		source.output().send(MessageBuilder.withPayload(model).build());
 	}
 }

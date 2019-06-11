@@ -33,7 +33,9 @@ zuul:
   prefix: /api
   routes:
     adminregisterservice: /ar/**
+    userregisterservice: /ur/**
     adminsessionservice: /as/**
+    usersessionservice: /us/**
     adminnewsservice: /an/**
     usernewsservice: /un/**
     adminproductservice: /ap/**

@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class AdminRegisterService {
+public class AdminService {
 
 	@Autowired
 	private AdminEventPublisher adminEventPublisher;
 
-	public void publishAdmin(Admin admin) {
+	public void save(Admin admin) {
 		adminEventPublisher.publish(admin);
 	}
 }

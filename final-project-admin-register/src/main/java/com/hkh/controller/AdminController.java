@@ -1,7 +1,7 @@
 package com.hkh.controller;
 
 import com.hkh.model.Admin;
-import com.hkh.service.AdminRegisterService;
+import com.hkh.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
 	@Autowired
-	private AdminRegisterService adminRegisterService;
+	private AdminService adminService;
 
 	@RequestMapping(value = "/reg", method = RequestMethod.POST)
 	public String doReg(Admin admin) {
-		adminRegisterService.publishAdmin(admin);
+		adminService.save(admin);
 		return "doReg";
 	}
 }

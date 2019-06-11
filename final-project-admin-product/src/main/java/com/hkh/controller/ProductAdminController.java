@@ -77,9 +77,9 @@ public class ProductAdminController {
 	private Picture uploadAndSaveImg(HttpSession session, MultipartFile file, String fileName, String path, String serverFile) {
 		Picture picture = new Picture();
 		try {
-			log.info("PATH : {}", path);
-			log.info("FILE name : {}", fileName);
-			log.info("SERVER file path: {}", serverFile);
+			log.info("\nPATH : {}", path);
+			log.info("\nFILE name : {}", fileName);
+			log.info("\nSERVER file path: {}", serverFile);
 			if (!new File(path).exists()) {
 				new File(path).mkdirs();
 			}

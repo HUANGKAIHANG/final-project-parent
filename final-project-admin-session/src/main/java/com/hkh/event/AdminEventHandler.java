@@ -22,7 +22,7 @@ public class AdminEventHandler {
 
 	@StreamListener("adminEventInput")
 	public void handle(AdminEventModel model) {
-		log.info("RECEIVED admin {}", model);
+		log.info("\nRECEIVED admin {}", model);
 		Admin admin = Admin.builder()
 				.username(model.getUsername())
 				.password(model.getPassword())

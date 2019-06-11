@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Admin implements Serializable {
 
 	private static final long serialVersionUID = 1L;

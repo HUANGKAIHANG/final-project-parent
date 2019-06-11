@@ -25,7 +25,7 @@ public class NewsEventHandler {
 
 	@StreamListener("newsEventInput")
 	public void handle(NewsEventModel model) {
-		log.info("RECEIVED news {}", model);
+		log.info("\nRECEIVED news {}", model);
 		if (NEWS_ADD.equals(model.getOperation())) {
 			News news = News.builder()
 					.title(model.getTitle())

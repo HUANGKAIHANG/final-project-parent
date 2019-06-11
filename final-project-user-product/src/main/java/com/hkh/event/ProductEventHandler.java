@@ -32,7 +32,7 @@ public class ProductEventHandler {
 
 	@StreamListener("productEventInput")
 	public void handle(ProductEventModel model) {
-		log.info("RECEIVED product {}", model);
+		log.info("\nRECEIVED product {}", model);
 		if (PRODUCT_ADD.equals(model.getOperation())) {
 			Picture tempPicture = model.getMasterPic();
 			Picture picture = buildNewPictureModel(tempPicture, model.getInputUser().getId());
