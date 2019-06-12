@@ -41,6 +41,7 @@ zuul:
     adminproductservice: /ap/**
     userproductservice: /up/**
     userprofileservice: /upf/**
+    usercartservice: /uc/**
 
 #Spring Boot Configuration
 spring:
