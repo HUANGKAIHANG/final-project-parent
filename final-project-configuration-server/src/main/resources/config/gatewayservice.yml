@@ -40,6 +40,7 @@ zuul:
     usernewsservice: /un/**
     adminproductservice: /ap/**
     userproductservice: /up/**
+    userprofileservice: /upf/**
 
 #Spring Boot Configuration
 spring:
