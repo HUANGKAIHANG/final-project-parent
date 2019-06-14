@@ -99,4 +99,22 @@ public class OrderService {
 	public Product getOneProduct(Integer id) {
 		return productDao.getOne(id);
 	}
+
+	public List<Order> findOrders(Page<Order> page) {
+		List<Order> orderList = orderDao.findAll(page.getPageable()).getContent();
+		for (Order order : orderList) {
+			List<OrderItem> orderItemList = order.getOrderItems();
+			for (OrderItem orderItem : orderItemList) {
+				orderItem.setProduct(getOneProduct(orderItem.getProductId()));
+			}
+		}
+		page.setResult(orderList);
+		page.setTotalCount(orderDao.count());
+		return page.getResult();
+	}
+
+	public void deleteOrder(Integer id) {
+		orderItemDao.deleteByOrderId(id);
+		orderDao.deleteById(id);
+	}
 }

@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @update 2019/6/13 15:35
  */
 
-
 @Data
 public class ResultBase implements Serializable {
 

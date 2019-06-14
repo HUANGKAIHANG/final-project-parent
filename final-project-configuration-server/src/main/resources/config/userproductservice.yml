@@ -53,3 +53,9 @@ spring:
           content-type: application/json
           group: productGroup
           binder: rabbit6
+  #Spring Session Redis Configuration
+  redis:
+    host: 47.101.45.147
+    port: 6379
+  session:
+    store-type: redis

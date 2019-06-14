@@ -39,8 +39,9 @@ zuul:
     adminnewsservice: /an/**
     usernewsservice: /un/**
     adminproductservice: /ap/**
-    userorderservice: /uo/**
     userproductservice: /up/**
+    adminorderservice: /ao/**
+    userorderservice: /uo/**
     userprofileservice: /upf/**
     usercartservice: /uc/**
 

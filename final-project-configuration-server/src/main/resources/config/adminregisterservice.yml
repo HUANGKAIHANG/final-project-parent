@@ -37,3 +37,9 @@ spring:
           destination: adminEventTopic
           content-type: application/json
           binder: rabbit1
+  #Spring Session Redis Configuration
+  redis:
+    host: 47.101.45.147
+    port: 6379
+  session:
+    store-type: redis
