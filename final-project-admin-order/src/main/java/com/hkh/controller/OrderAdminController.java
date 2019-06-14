@@ -27,8 +27,12 @@ public class OrderAdminController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public Page<Order> adminList(HttpServletRequest request) {
-		int p = Integer.parseInt(request.getParameter("p"));
-		int ps = Integer.parseInt(request.getParameter("ps"));
+		int p = 1;
+		int ps = 10;
+		if (request.getParameter("p") != null)
+			p = Integer.parseInt(request.getParameter("p"));
+		if (request.getParameter("ps") != null)
+			ps = Integer.parseInt(request.getParameter("ps"));
 		Page<Order> page = new Page<Order>(request);
 		orderService.findOrders(page, p, ps);
 		return page;

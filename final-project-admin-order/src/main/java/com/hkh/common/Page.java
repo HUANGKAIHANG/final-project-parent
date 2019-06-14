@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author HUANG Kaihang
  * @create 2019/6/14 15:49
- * @update 2019/6/14 15:49
+ * @update 2019/6/14 20:45
  */
 
 public class Page<T> {
@@ -23,7 +23,7 @@ public class Page<T> {
 	protected int pageNo = 1;
 	protected int pageSize = -1;
 	protected String orderBy = null;
-	protected String order = null;
+	protected String orders = null;
 	protected boolean autoCount = true;
 
 	// -- 返回结果 --//
@@ -124,8 +124,8 @@ public class Page<T> {
 	/**
 	 * 获得排序方向, 无默认值.
 	 */
-	public String getOrder() {
-		return order;
+	public String getOrders() {
+		return orders;
 	}
 
 	/**
@@ -133,25 +133,27 @@ public class Page<T> {
 	 *
 	 * @param order 可选值为desc或asc,多个排序字段时用','分隔.
 	 */
-	public void setOrder(final String order) {
-		String lowcaseOrder = StringUtils.lowerCase(order);
+	public void setOrders(final String order) {
+		if (order!=null) {
+			String lowcaseOrder = StringUtils.lowerCase(order);
 
-		// 检查order字符串的合法值
-		String[] orders = StringUtils.split(lowcaseOrder, ',');
-		for (String orderStr : orders) {
-			if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr)) {
-				throw new IllegalArgumentException("排序方向" + orderStr + "不是合法值");
+			// 检查order字符串的合法值
+			String[] orders = StringUtils.split(lowcaseOrder, ',');
+			for (String orderStr : orders) {
+				if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr)) {
+					throw new IllegalArgumentException("排序方向" + orderStr + "不是合法值");
+				}
 			}
-		}
 
-		this.order = lowcaseOrder;
+			this.orders = lowcaseOrder;
+		}
 	}
 
 	/**
 	 * 返回Page对象自身的setOrder函数,可用于连续设置。
 	 */
 	public Page<T> order(final String theOrder) {
-		setOrder(theOrder);
+		setOrders(theOrder);
 		return this;
 	}
 
@@ -159,7 +161,7 @@ public class Page<T> {
 	 * 是否已设置排序字段,无默认值.
 	 */
 	public boolean isOrderBySetted() {
-		return (StringUtils.isNotBlank(orderBy) && StringUtils.isNotBlank(order));
+		return (StringUtils.isNotBlank(orderBy) && StringUtils.isNotBlank(orders));
 	}
 
 	/**

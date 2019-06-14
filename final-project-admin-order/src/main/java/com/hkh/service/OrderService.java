@@ -24,12 +24,11 @@ public class OrderService {
 	@Autowired
 	private OrderEventPublisher orderEventPublisher;
 
-	public List<Order> findOrders(Page<Order> page, int p, int ps) {
+	public Page<Order> findOrders(Page<Order> page, int p, int ps) {
 		Page<Order> temp = orderDao.findOrders(p, ps);
-		page = temp;
-		/*page.setResult(temp.getResult());
-		page.setTotalCount(temp.getTotalCount());*/
-		return page.getResult();
+		page.setResult(temp.getResult());
+		page.setTotalCount(temp.getTotalCount());
+		return null;
 	}
 
 	public Order findById(Integer id) {
