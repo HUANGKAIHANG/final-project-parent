@@ -1,6 +1,7 @@
 package com.hkh.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +21,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;

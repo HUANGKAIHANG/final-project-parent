@@ -9,10 +9,13 @@ import com.hkh.model.Product;
 import com.hkh.model.UserAddress;
 import com.hkh.repository.OrderItemRepository;
 import com.hkh.repository.OrderRepository;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +38,14 @@ public class OrderService {
 	@Autowired
 	ProductFeignClient productDao;
 
+	@HystrixCommand(
+			fallbackMethod = "buildFallbackUserOrderPage",
+			threadPoolKey = "orderServiceFindOrdersThreadPool",
+			commandProperties = {
+					@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds"
+							, value = "3000")
+			}
+	)
 	public List<Order> findOrders(Page<Order> page, Integer userId) {
 		List<Order> orderList = orderDao.findByUserId(userId, page.getPageable()).getContent();
 		for (Order order : orderList) {
@@ -62,6 +73,14 @@ public class OrderService {
 		orderDao.save(order);
 	}
 
+	@HystrixCommand(
+			fallbackMethod = "buildFallbackOrder",
+			threadPoolKey = "orderServiceFindByIdThreadPool",
+			commandProperties = {
+					@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds"
+							, value = "2000")
+			}
+	)
 	public Order findById(Integer id) {
 		Order order = orderDao.getOne(id);
 		List<OrderItem> orderItemList = order.getOrderItems();
@@ -100,6 +119,14 @@ public class OrderService {
 		return productDao.getOne(id);
 	}
 
+	@HystrixCommand(
+			fallbackMethod = "buildFallbackAdminOrderPage",
+			threadPoolKey = "orderServiceFindAdminOrdersThreadPool",
+			commandProperties = {
+					@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds"
+							, value = "3000")
+			}
+	)
 	public List<Order> findOrders(Page<Order> page) {
 		List<Order> orderList = orderDao.findAll(page.getPageable()).getContent();
 		for (Order order : orderList) {
@@ -116,5 +143,36 @@ public class OrderService {
 	public void deleteOrder(Integer id) {
 		orderItemDao.deleteByOrderId(id);
 		orderDao.deleteById(id);
+	}
+
+	private Order buildFallbackOrder(Integer id) {
+		Order order = Order.builder()
+				.id(id)
+				.orderNumber("Sorry no Order information currently available.")
+				.build();
+		return order;
+	}
+
+	private List<Order> buildFallbackUserOrderPage(Page<Order> page, Integer userId) {
+		List<Order> list = new ArrayList<>();
+		Order order = Order.builder()
+				.userId(userId)
+				.orderNumber("Sorry no Order information currently available.")
+				.build();
+		list.add(order);
+		page.setResult(list);
+		page.setTotalCount(1);
+		return null;
+	}
+
+	private List<Order> buildFallbackAdminOrderPage(Page<Order> page) {
+		List<Order> list = new ArrayList<>();
+		Order order = Order.builder()
+				.orderNumber("Sorry no Order information currently available.")
+				.build();
+		list.add(order);
+		page.setResult(list);
+		page.setTotalCount(1);
+		return page.getResult();
 	}
 }

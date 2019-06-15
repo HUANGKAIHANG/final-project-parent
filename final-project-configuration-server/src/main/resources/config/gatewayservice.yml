@@ -19,11 +19,11 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 7000
+            timeoutInMilliseconds: 10000
 
 #Ribbon Configuration
 ribbon:
-  ReadTimeout: 7000
+  ReadTimeout: 10000
 
 #Zuul Configuration
 zuul:
