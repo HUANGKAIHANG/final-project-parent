@@ -46,7 +46,10 @@ public class UserController {
 
 	@RequestMapping(value = "/userAddress", method = RequestMethod.GET)
 	public List<UserAddress> userAddress(HttpSession session) {
+		long startTime = System.currentTimeMillis();
 		List<UserAddress> userAddressList = userAddressService.findByUserId(getUserFromSession(session).getId());
+		long stopTime = System.currentTimeMillis();
+		log.info("Performance: " + (stopTime - startTime) + "ms.");
 		return userAddressList;
 	}
 

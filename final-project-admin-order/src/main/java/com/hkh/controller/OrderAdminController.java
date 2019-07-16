@@ -4,6 +4,7 @@ import com.hkh.common.JsonResult;
 import com.hkh.common.Page;
 import com.hkh.model.Order;
 import com.hkh.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/admin/order")
+@Slf4j
 public class OrderAdminController {
 
 	@Autowired
@@ -27,6 +29,7 @@ public class OrderAdminController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public Page<Order> adminList(HttpServletRequest request) {
+		long startTime = System.currentTimeMillis();
 		int p = 1;
 		int ps = 10;
 		if (request.getParameter("p") != null)
@@ -35,6 +38,8 @@ public class OrderAdminController {
 			ps = Integer.parseInt(request.getParameter("ps"));
 		Page<Order> page = new Page<Order>(request);
 		orderService.findOrders(page, p, ps);
+		long stopTime = System.currentTimeMillis();
+		log.info("Performance: " + (stopTime - startTime) + "ms.");
 		return page;
 	}
 

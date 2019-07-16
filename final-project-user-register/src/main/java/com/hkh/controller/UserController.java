@@ -28,13 +28,17 @@ public class UserController {
 
 	@PostMapping(value = "/reg")
 	public String doReg(@Valid User user, BindingResult result) {
+		long startTime = System.currentTimeMillis();
 		if (result.hasErrors()) {
 			for (ObjectError or : result.getAllErrors()) {
-				log.warn("VALIDATION type:{}\nERROR message:{}", or.getCode(), or.getDefaultMessage());
+				log.warn("validate type:{}\nwrong message:{}", or.getCode(), or.getDefaultMessage());
 			}
-			return "hasErrors: " + result.hasErrors();
+//			return "hasErrors: " + result.hasErrors();
+			return "ERROR, please try again";
 		}
 		userService.save(user);
+		long stopTime = System.currentTimeMillis();
+		log.info("Performance: " + (stopTime - startTime) + "ms.");
 		return "doReg";
 	}
 

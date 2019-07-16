@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/cart")
+@Slf4j
 public class CartController {
 
 	@Autowired
@@ -27,10 +28,13 @@ public class CartController {
 
 	@RequestMapping(value = "/add/{id}/{total}")
 	public JsonResult addToCart(@PathVariable Integer id, @PathVariable Integer total, HttpSession session) {
+		long startTime = System.currentTimeMillis();
 		Product product = productService.findById(id);
 		CartUtil.saveProductToCart(session, product, total);
 		JsonResult result = new JsonResult();
 		result.setToSuccess();
+		long stopTime = System.currentTimeMillis();
+		log.info("Performance: " + (stopTime - startTime) + "ms.");
 		return result;
 	}
 
